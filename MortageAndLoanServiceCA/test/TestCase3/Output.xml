@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <m:MortageAndLoanServiceWSDLOperationResponse xmlns:m="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL">
+      <MortageTotalAmountConverted>125.7099739388971218555</MortageTotalAmountConverted>
+      <MonthlyTaxRate>7.553597143067952</MonthlyTaxRate>
+      <MonthlyInsuranceRate>12.589328571779918</MonthlyInsuranceRate>
+      <LoanMonthlyPaymentResult>Loan_reply_fault: erro no loan result</LoanMonthlyPaymentResult>
+    </m:MortageAndLoanServiceWSDLOperationResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

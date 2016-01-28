@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="mortageAndLoanService"
+    targetNamespace="http://enterprise.netbeans.org/bpel/MortageAndLoanService/mortageAndLoanService"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/MortageAndLoanService/mortageAndLoanService"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://www.webserviceX.NET/" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" xmlns:ns1="aaa" xmlns:ns2="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" xmlns:ns3="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL">
+    <import namespace="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL" location="MortageAndLoanServiceWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/mortgage.asmxWrapper" location="mortgage.asmxWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://www.webserviceX.NET/" location="http://www.webservicex.net/mortgage.asmx?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/ConversionAmountRESTWSDL" location="ConversionAmountRESTWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" location="LoanAmountProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" location="LoanAmountCallBackWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" location="WizardCorrelationProperties.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="ConversionService" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/ConversionAmountRESTWSDL" partnerLinkType="tns:RestOutboundWSDL" partnerRole="RestOutboundPortTypeRole"/>
+        <partnerLink name="MortageService" xmlns:tns="http://enterprise.netbeans.org/bpel/mortgage.asmxWrapper" partnerLinkType="tns:MortgageSoapLinkType" partnerRole="MortgageSoapRole"/>
+        <partnerLink name="LoanProxy" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" partnerLinkType="tns:LoanAmountProxyWSDL" partnerRole="LoanAmountProxyWSDLPortTypeRole"/>
+        <partnerLink name="Client" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL" partnerLinkType="tns:MortageAndLoanServiceWSDL" myRole="MortageAndLoanServiceWSDLPortTypeRole"/>
+        <partnerLink name="LoanCallBack" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" partnerLinkType="tns:LoanAmountCallBackWSDL" myRole="LoanAmountCallBackWSDLPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="MortageAndLoanServiceWSDLOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL" messageType="tns:MortageAndLoanServiceWSDLOperationResponse"/>
+        <variable name="GetConversionAmountOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/ConversionAmountRESTWSDL" messageType="tns:GetConversionAmountOperationResponse"/>
+        <variable name="GetConversionAmountOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/ConversionAmountRESTWSDL" messageType="tns:GetConversionAmountOperationRequest"/>
+        <variable name="GetMortgagePaymentOut" xmlns:tns="http://www.webserviceX.NET/" messageType="tns:GetMortgagePaymentSoapOut"/>
+        <variable name="GetMortgagePaymentIn" xmlns:tns="http://www.webserviceX.NET/" messageType="tns:GetMortgagePaymentSoapIn"/>
+        <variable name="MortageAndLoanServiceWSDLOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL" messageType="tns:MortageAndLoanServiceWSDLOperationRequest"/>
+    </variables>
+    <correlationSets>
+        <correlationSet name="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation" properties="ns2:wzrd_prop_string_string"/>
+        <correlationSet name="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation_1" properties="ns2:wzrd_prop_string_string2"/>
+        <correlationSet name="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation_2" properties="ns2:wzrd_prop_string_string3"/>
+    </correlationSets>
+    <sequence>
+        <scope name="ExternalScope">
+            <variables>
+                <variable name="To_faultVar" messageType="ns3:To_fault_Message"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="ns3:to_fault">
+                    <sequence name="Sequence4">
+                        <assign name="Assign1">
+                            <copy>
+                                <from>'to_fault: request timeout'</from>
+                                <to variable="To_faultVar" part="FaultMessage"/>
+                            </copy>
+                        </assign>
+                        <reply name="Reply2" partnerLink="Client" operation="MortageAndLoanServiceWSDLOperation" portType="ns3:MortageAndLoanServiceWSDLPortType" faultName="ns3:to_fault" variable="To_faultVar"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="Sequence1">
+                <receive name="Receive1" createInstance="yes" partnerLink="Client" operation="MortageAndLoanServiceWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL" portType="tns:MortageAndLoanServiceWSDLPortType" variable="MortageAndLoanServiceWSDLOperationIn"/>
+                <flow name="Flow1">
+                    <scope name="MortageScope" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/ConversionAmountRESTWSDL">
+                        <faultHandlers>
+                            <catch faultName="ns1:Mortage_reply_fault">
+                                    <assign name="AssignMortageReplyFault">
+                                            <copy>
+                                                    <from>'Mortage_reply_fault: total mortage calculation error'</from>
+                                                        <to variable="MortageAndLoanServiceWSDLOperationOut" part="MortageTotalAmountConverted"/>
+                                                </copy>
+                                                <copy>
+                                                    <from>'NaN'</from>
+                                                        <to variable="MortageAndLoanServiceWSDLOperationOut" part="MonthlyTaxRate"/>
+                                                </copy>
+                                                <copy>
+                                                    <from>'NaN'</from>
+                                                        <to variable="MortageAndLoanServiceWSDLOperationOut" part="MonthlyInsuranceRate"/>
+                                                </copy>
+                                        </assign>
+                                </catch>
+                        </faultHandlers>
+                            <sequence name="Sequence1">
+                            <assign name="AssignMortage">
+                                    <copy>
+                                            <from variable="MortageAndLoanServiceWSDLOperationIn" part="MortageYears"/>
+                                                <to>$GetMortgagePaymentIn.parameters/ns0:Years</to>
+                                        </copy>
+                                        <copy>
+                                            <from variable="MortageAndLoanServiceWSDLOperationIn" part="MortageInterest"/>
+                                                <to>$GetMortgagePaymentIn.parameters/ns0:Interest</to>
+                                        </copy>
+                                        <copy>
+                                            <from variable="MortageAndLoanServiceWSDLOperationIn" part="MortageLoanAmount"/>
+                                                <to>$GetMortgagePaymentIn.parameters/ns0:LoanAmount</to>
+                                        </copy>
+                                        <copy>
+                                            <from variable="MortageAndLoanServiceWSDLOperationIn" part="MortageAnnualTax"/>
+                                                <to>$GetMortgagePaymentIn.parameters/ns0:AnnualTax</to>
+                                        </copy>
+                                        <copy>
+                                            <from variable="MortageAndLoanServiceWSDLOperationIn" part="MortageAnnualInsurance"/>
+                                                <to>$GetMortgagePaymentIn.parameters/ns0:AnnualInsurance</to>
+                                        </copy>
+                                </assign>
+                                <invoke name="InvokeMortage" partnerLink="MortageService" operation="GetMortgagePayment" portType="ns0:MortgageSoap" inputVariable="GetMortgagePaymentIn" outputVariable="GetMortgagePaymentOut"/>
+                                <if name="If1">
+                                    <condition>$GetMortgagePaymentOut.parameters/ns0:GetMortgagePaymentResult/ns0:MonthlyPrincipalAndInterest = 'NaN' or $GetMortgagePaymentOut.parameters/ns0:GetMortgagePaymentResult/ns0:MonthlyPrincipalAndInterest = 'INF'</condition>
+                                        <throw name="Throw_Mortage_reply_fault" faultName="ns1:Mortage_reply_fault"/>
+                                </if>
+                                <assign name="AssignConversion">
+                                    <copy>
+                                            <from variable="MortageAndLoanServiceWSDLOperationIn" part="CurrencyFrom"/>
+                                                <to variable="GetConversionAmountOperationIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.CurrencyFrom"/>
+                                        </copy>
+                                        <copy>
+                                            <from variable="MortageAndLoanServiceWSDLOperationIn" part="CurrencyTo"/>
+                                                <to variable="GetConversionAmountOperationIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.CurrencyTo"/>
+                                        </copy>
+                                        <copy>
+                                            <from>substring-before(sxxf:current-date(), '+')</from>
+                                                <to variable="GetConversionAmountOperationIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.RateDate"/>
+                                        </copy>
+                                        <copy>
+                                            <from>$GetMortgagePaymentOut.parameters/ns0:GetMortgagePaymentResult/ns0:TotalPayment</from>
+                                                <to variable="GetConversionAmountOperationIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.Amount"/>
+                                        </copy>
+                                </assign>
+                                <invoke name="InvokeConversion" partnerLink="ConversionService" operation="GetConversionAmountOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/ConversionAmountRESTWSDL" portType="tns:RestOutboundPortType" inputVariable="GetConversionAmountOperationIn" outputVariable="GetConversionAmountOperationOut"/>
+                                <assign name="AssignConversionOutput">
+                                        <copy>
+                                            <from>($GetMortgagePaymentOut.parameters/ns0:GetMortgagePaymentResult/ns0:MonthlyTax * '100') div $GetMortgagePaymentOut.parameters/ns0:GetMortgagePaymentResult/ns0:TotalPayment</from>
+                                                <to variable="MortageAndLoanServiceWSDLOperationOut" part="MonthlyTaxRate"/>
+                                        </copy>
+                                        <copy>
+                                            <from>($GetMortgagePaymentOut.parameters/ns0:GetMortgagePaymentResult/ns0:MonthlyInsurance * '100') div $GetMortgagePaymentOut.parameters/ns0:GetMortgagePaymentResult/ns0:TotalPayment</from>
+                                                <to variable="MortageAndLoanServiceWSDLOperationOut" part="MonthlyInsuranceRate"/>
+                                        </copy>
+                                    <copy>
+                                        <from>substring-before(substring-after($GetConversionAmountOperationOut.ConvertedAmount, '"&gt;'), '&lt;/')</from>
+                                        <to variable="MortageAndLoanServiceWSDLOperationOut" part="MortageTotalAmountConverted"/>
+                                    </copy>
+                                </assign>
+                        </sequence>
+                    </scope>
+                    <scope name="LoanScope">
+                        <variables>
+                            <variable name="LoanAmountCallBackWSDLOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" messageType="tns:LoanAmountCallBackWSDLOperationRequest"/>
+                            <variable name="LoanAmountProxyWSDLOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" messageType="tns:LoanAmountProxyWSDLOperationRequest"/>
+                        </variables>
+                        <faultHandlers>
+                            <catch faultName="ns1:Loan_reply_fault">
+                                <assign name="Assign_Loan_Fault">
+                                    <copy>
+                                        <from>'Loan_reply_fault: erro no loan result'</from>
+                                        <to variable="MortageAndLoanServiceWSDLOperationOut" part="LoanMonthlyPaymentResult"/>
+                                    </copy>
+                                </assign>
+                            </catch>
+                        </faultHandlers>
+                        <sequence name="Sequence2">
+                            <assign name="AssignLoan">
+                                <copy>
+                                    <from variable="MortageAndLoanServiceWSDLOperationIn" part="LoanAmount"/>
+                                    <to variable="LoanAmountProxyWSDLOperationIn" part="LoanAmount"/>
+                                </copy>
+                                <copy>
+                                    <from variable="MortageAndLoanServiceWSDLOperationIn" part="Months"/>
+                                    <to variable="LoanAmountProxyWSDLOperationIn" part="Months"/>
+                                </copy>
+                                <copy>
+                                    <from variable="MortageAndLoanServiceWSDLOperationIn" part="InterestRate"/>
+                                    <to variable="LoanAmountProxyWSDLOperationIn" part="InterestRate"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeProxy" partnerLink="LoanProxy" operation="LoanAmountProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" portType="tns:LoanAmountProxyWSDLPortType" inputVariable="LoanAmountProxyWSDLOperationIn">
+                                <correlations>
+                                    <correlation set="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation" initiate="yes"/>
+                                    <correlation set="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation_1" initiate="yes"/>
+                                    <correlation set="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation_2" initiate="yes"/>
+                                </correlations>
+                            </invoke>
+                            <pick name="Pick1">
+                                <onMessage partnerLink="LoanCallBack" operation="LoanAmountCallBackWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" portType="tns:LoanAmountCallBackWSDLPortType" variable="LoanAmountCallBackWSDLOperationIn">
+                                    <correlations>
+                                        <correlation set="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation" initiate="no"/>
+                                        <correlation set="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation_1" initiate="no"/>
+                                        <correlation set="wzrd_set_InvokeProxy_OnMessage_Pick1_LoanAmountCallBackWSDLOperation_2" initiate="no"/>
+                                    </correlations>
+                                    <sequence name="Sequence3">
+                                        <if name="If2">
+                                            <condition>$LoanAmountCallBackWSDLOperationIn.LoanMonthlyPaymentResult = 'NaN'</condition>
+                                            <throw name="Throw_Loan_reply_fault" faultName="ns1:Loan_reply_fault"/>
+                                            <else>
+                                                <assign name="AssignLoanOutput">
+                                                    <copy>
+                                                        <from variable="LoanAmountCallBackWSDLOperationIn" part="LoanMonthlyPaymentResult"/>
+                                                        <to variable="MortageAndLoanServiceWSDLOperationOut" part="LoanMonthlyPaymentResult"/>
+                                                    </copy>
+                                                </assign>
+                                            </else>
+                                        </if>
+                                    </sequence>
+                                </onMessage>
+                                <onAlarm>
+                                    <for>'P0Y0M0DT0H0M10.0S'</for>
+                                    <throw name="ThrowToFault" faultName="ns3:to_fault"/>
+                                </onAlarm>
+                            </pick>
+                        </sequence>
+                    </scope>
+                </flow>
+                <reply name="Reply1" partnerLink="Client" operation="MortageAndLoanServiceWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL" portType="tns:MortageAndLoanServiceWSDLPortType" variable="MortageAndLoanServiceWSDLOperationOut"/>
+            </sequence>
+        </scope>
+    </sequence>
+</process>

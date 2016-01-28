@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="loanAmountProxy"
+    targetNamespace="http://enterprise.netbeans.org/bpel/LoanAmountProxy/loanAmountProxy"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/LoanAmountProxy/loanAmountProxy"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://www.webserviceX.NET/">
+    <import namespace="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" location="LoanAmountProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" location="LoanAmountCallBackWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/FinanceService.asmxWrapper" location="FinanceService.asmxWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://www.webserviceX.NET/" location="http://www.webservicex.net/FinanceService.asmx?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="LoanAmountService" xmlns:tns="http://enterprise.netbeans.org/bpel/FinanceService.asmxWrapper" partnerLinkType="tns:FinanceServiceSoapLinkType" partnerRole="FinanceServiceSoapRole"/>
+        <partnerLink name="CallBack" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" partnerLinkType="tns:LoanAmountCallBackWSDL" partnerRole="LoanAmountCallBackWSDLPortTypeRole"/>
+        <partnerLink name="Request" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" partnerLinkType="tns:LoanAmountProxyWSDL" myRole="LoanAmountProxyWSDLPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="LoanMonthlyPaymentOut" messageType="ns0:LoanMonthlyPaymentSoapOut"/>
+        <variable name="LoanMonthlyPaymentIn" xmlns:tns="http://www.webserviceX.NET/" messageType="tns:LoanMonthlyPaymentSoapIn"/>
+        <variable name="LoanAmountCallBackWSDLOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" messageType="tns:LoanAmountCallBackWSDLOperationRequest"/>
+        <variable name="LoanAmountProxyWSDLOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" messageType="tns:LoanAmountProxyWSDLOperationRequest"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveRequest" createInstance="yes" partnerLink="Request" operation="LoanAmountProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountProxyWSDL" portType="tns:LoanAmountProxyWSDLPortType" variable="LoanAmountProxyWSDLOperationIn"/>
+        <assign name="AssignLoanAmount">
+            <copy>
+                <from variable="LoanAmountProxyWSDLOperationIn" part="LoanAmount"/>
+                <to>$LoanMonthlyPaymentIn.parameters/ns0:LoanAmount</to>
+            </copy>
+            <copy>
+                <from variable="LoanAmountProxyWSDLOperationIn" part="InterestRate"/>
+                <to>$LoanMonthlyPaymentIn.parameters/ns0:InterestRate</to>
+            </copy>
+            <copy>
+                <from variable="LoanAmountProxyWSDLOperationIn" part="Months"/>
+                <to>$LoanMonthlyPaymentIn.parameters/ns0:Months</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeLoanAmountService" partnerLink="LoanAmountService" operation="LoanMonthlyPayment" xmlns:tns="http://www.webserviceX.NET/" portType="tns:FinanceServiceSoap" inputVariable="LoanMonthlyPaymentIn" outputVariable="LoanMonthlyPaymentOut"/>
+        <assign name="AssignCallBack">
+            <copy>
+                <from>$LoanMonthlyPaymentOut.parameters/ns0:LoanMonthlyPaymentResult</from>
+                <to variable="LoanAmountCallBackWSDLOperationIn" part="LoanMonthlyPaymentResult"/>
+            </copy>
+            <copy>
+                <from variable="LoanAmountProxyWSDLOperationIn" part="LoanAmount"/>
+                <to variable="LoanAmountCallBackWSDLOperationIn" part="LoanAmount"/>
+            </copy>
+            <copy>
+                <from variable="LoanAmountProxyWSDLOperationIn" part="InterestRate"/>
+                <to variable="LoanAmountCallBackWSDLOperationIn" part="InterestRate"/>
+            </copy>
+            <copy>
+                <from variable="LoanAmountProxyWSDLOperationIn" part="Months"/>
+                <to variable="LoanAmountCallBackWSDLOperationIn" part="Months"/>
+            </copy>
+        </assign>
+        <invoke name="InvokeCallBack" partnerLink="CallBack" operation="LoanAmountCallBackWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" portType="tns:LoanAmountCallBackWSDLPortType" inputVariable="LoanAmountCallBackWSDLOperationIn"/>
+    </sequence>
+</process>

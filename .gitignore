@@ -45,3 +45,20 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+**/nbproject/private/
+**/build/
+**/nbbuild/
+**/dist/
+**/nbdist/
+nbactions.xml
+**/.nb-gradle/
+*.jar
+*.class
+
+MortageAndLoanService/nbproject/private/
+MortageAndLoanServiceCA/nbproject/private/
+MortageAndLoanServiceCA/src/jbiServiceUnits/
+MortageAndLoanServiceCA/test/results/
+LoanAmountProxyCA/src/jbiServiceUnits/
