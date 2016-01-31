@@ -1,0 +1,33 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+
+\input{structure.tex} % Include the structure.tex file which specified the document structure and layout
+
+\begin{document}
+\section*{ISS Project: Mortgage Conversion And Loan Service}
+A simple SOAP Service developed in WS-BPEL that provide the total monthly mortgage 
+converted and the monthly loan amount to be paid.
+
+\paragraph{Folder Structure}
+\begin{itemize}
+\item \textbf{LoanAmountProxy}/: the OpenESB project of the BPEL module of the asynchronous proxy
+\item \textbf{LoanAmountProxyCA}/: the OpenESB project of the Application Composition fo the LoanAmountProxy module.
+\item \textbf{MortgageConversionAndLoanService}/: the OpenESB project of the BPEL module of the main service.
+\item \textbf{MortgageConversionAndLoanServiceCA}/: the OpenESB project of the Application Composition of the MortgageAndLloanService module
+\item \textbf{MortgageConversionAndLoanService.pnml}: the source file of the workflow net modelling the service created with WoPeD.
+\item \textbf{img}/: the folder that contains the image used in the report
+\item \textbf{REPORT.pdf}: the pdf of the report
+\item \textbf{README.pdf}: the pdf of the readme
+\end{itemize}
+\paragraph{Developed with}
+\begin{itemize}
+\item OpenESB v2.3 - NetBeans
+\end{itemize}
+
+\end{document}

@@ -57,8 +57,11 @@ nbactions.xml
 *.jar
 *.class
 
-MortageAndLoanService/nbproject/private/
-MortageAndLoanServiceCA/nbproject/private/
-MortageAndLoanServiceCA/src/jbiServiceUnits/
-MortageAndLoanServiceCA/test/results/
+README/build/
+Report/build/
+ReadyToDelivery/
+MortgageConversionAndLoanService/nbproject/private/
+MortgageConversionAndLoanServiceCA/nbproject/private/
+MortgageConversionAndLoanServiceCA/src/jbiServiceUnits/
+MortgageConversionAndLoanServiceCA/test/results/
 LoanAmountProxyCA/src/jbiServiceUnits/

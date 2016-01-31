@@ -60,6 +60,14 @@
                 <to variable="LoanAmountCallBackWSDLOperationIn" part="Months"/>
             </copy>
         </assign>
+        
+        <!-- ____DEBUG____ -->
+          <!--
+            <wait name="Wait1">
+                <for>'P0Y0M0DT0H0M15.0S'</for>
+            </wait>
+           -->
+        <!-- ____DEBUG____ -->
         <invoke name="InvokeCallBack" partnerLink="CallBack" operation="LoanAmountCallBackWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" portType="tns:LoanAmountCallBackWSDLPortType" inputVariable="LoanAmountCallBackWSDLOperationIn"/>
     </sequence>
 </process>

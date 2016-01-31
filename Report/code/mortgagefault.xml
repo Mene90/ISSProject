@@ -1,0 +1,12 @@
+<mor:getMortgageAndLoan>
+   (*@ \textbf{<MortgageYears>0</MortgageYears>} @*)
+   <MortgageInterest>10</MortgageInterest>
+   <MortgageLoanAmount>10000</MortgageLoanAmount>
+   <MortgageAnnualTax>150</MortgageAnnualTax>
+   <MortgageAnnualInsurance>250</MortgageAnnualInsurance>
+   <CurrencyFrom>usd</CurrencyFrom>
+   <CurrencyTo>JPY</CurrencyTo>
+   <LoanAmount>1000</LoanAmount>
+   <InterestRate>7</InterestRate>
+   <Months>10</Months>
+</mor:getMortgageAndLoan>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <m:getMortgageAndLoanResponse xmlns:m="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL">
+      <MortgageTotalAmountConverted>Mortage_reply_fault: total mortage calculation error</MortgageTotalAmountConverted>
+      <MonthlyTaxRate>NaN</MonthlyTaxRate>
+      <MonthlyInsuranceRate>NaN</MonthlyInsuranceRate>
+      <LoanMonthlyPaymentResult xmlns:m="http://j2ee.netbeans.org/wsdl/LoanAmountProxy/src/LoanAmountCallBackWSDL" xmlns:msgns="http://www.webserviceX.NET/" xmlns:ns0="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL">103.23632309377655</LoanMonthlyPaymentResult>
+    </m:getMortgageAndLoanResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

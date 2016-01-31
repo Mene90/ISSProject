@@ -1,0 +1,7 @@
+<m:getMortgageAndLoanResponse>
+   (*@ \textbf{<MortgageTotalAmountConverted>Mortgage\_reply\_fault:} @*)
+   (*@ \textbf{total Mortgage calculation error</MortgageTotalAmountConverted>} @*)
+   (*@ \textbf{<MonthlyTaxRate>NaN</MonthlyTaxRate>} @*)
+   (*@ \textbf{<MonthlyInsuranceRate>NaN</MonthlyInsuranceRate>} @*)
+   <LoanMonthlyPaymentResult>103.23...</LoanMonthlyPaymentResult>
+</m:getMortgageAndLoanResponse>      

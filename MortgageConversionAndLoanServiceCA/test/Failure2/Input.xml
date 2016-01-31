@@ -1,0 +1,16 @@
+<soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mor="http://j2ee.netbeans.org/wsdl/MortageAndLoanService/src/MortageAndLoanServiceWSDL">
+  <soapenv:Body>
+    <mor:getMortgageAndLoan>
+      <MortgageYears>8</MortgageYears>
+      <MortgageInterest>10</MortgageInterest>
+      <MortgageLoanAmount>10000</MortgageLoanAmount>
+      <MortgageAnnualTax>150</MortgageAnnualTax>
+      <MortgageAnnualInsurance>250</MortgageAnnualInsurance>
+      <CurrencyFrom>eur</CurrencyFrom>
+      <CurrencyTo>gbp</CurrencyTo>
+      <LoanAmount>1000</LoanAmount>
+      <InterestRate>0</InterestRate>
+      <Months>10</Months>
+    </mor:getMortgageAndLoan>
+  </soapenv:Body>
+</soapenv:Envelope>

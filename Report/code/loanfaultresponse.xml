@@ -1,0 +1,7 @@
+<m:getMortgageAndLoanResponse>
+   <MortgageTotalAmountConverted>141.41...</MortgageTotalAmountConverted>
+   <MonthlyTaxRate>0.0675...</MonthlyTaxRate>
+   <MonthlyInsuranceRate>0.1125...</MonthlyInsuranceRate>
+   (*@\textbf{<LoanMonthlyPaymentResult>Loan\_reply\_fault:} @*)
+   (*@\textbf{erro no loan result</LoanMonthlyPaymentResult>} @*)
+</m:getMortgageAndLoanResponse>

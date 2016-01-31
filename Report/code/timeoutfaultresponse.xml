@@ -1,0 +1,9 @@
+<SOAP-ENV:Body>
+  <SOAP-ENV:Fault>
+    <faultcode>SOAP-ENV:Client</faultcode>
+    <faultstring>to_fault</faultstring>
+    <detail>
+      <FaultMessage>to_fault: request timeout</FaultMessage>
+    </detail>
+  </SOAP-ENV:Fault>
+</SOAP-ENV:Body>
